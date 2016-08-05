@@ -2,6 +2,7 @@ import codecs
 import os
 import re
 import subprocess
+import sys
 
 from gallium import ICommand
 
@@ -9,7 +10,8 @@ from gallium import ICommand
 class Compile(ICommand):
     """ Compile documents """
     def __init__(self):
-        self._re_ext = re.compile('\.[^\.]+$')
+        self._re_ext    = re.compile('\.(md|rst)+$', re.IGNORECASE)  # supported extensions
+        self._re_config = re.compile('^\..+\.(json|yml)$')  # override config files per file/directory
 
     def identifier(self):
         return 'compile'
@@ -38,6 +40,10 @@ class Compile(ICommand):
             raise IOError('{} not found'.format(src_path))
 
         if os.path.isfile(src_path):
+            if not self._re_ext.search(src_path):
+                sys.stderr.write('WARNING: {}\n')
+                return
+
             tmp_path      = '{}.compiled'.format(output_path)
             compiling_cmd = ' '.join(['github-markup', src_path, '>', tmp_path])
 
