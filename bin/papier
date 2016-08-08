@@ -3,18 +3,20 @@ import codecs
 import json
 import os
 import pprint
+
 from gallium.starter import main
-import papier
+
+from papier import helper
 
 if __name__ == '__main__':
-    papier_config_path = os.path.abspath(
-        os.path.join(
-            os.path.dirname(papier.__file__),
-            'cli.json'
-        )
-    )
+    papier_config_path = helper.path('cli.json')
+    papier_container_config_path = helper.path('containers.xml')
 
     with codecs.open(papier_config_path, 'r') as f:
         config = json.load(f)
+
+    config["services"] = [
+        papier_container_config_path,
+    ]
 
     main(config_content = config)

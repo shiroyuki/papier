@@ -1,0 +1,6 @@
+<imagination>
+    <entity id="compiler" class="papier.compiler.Compiler">
+        <param name="renderer" type="entity">renderer</param>
+    </entity>
+    <entity id="renderer" class="papier.renderer.Renderer"/>
+</imagination>

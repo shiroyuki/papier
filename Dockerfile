@@ -8,6 +8,9 @@ RUN apt-get install -yq python3 python3-dev python3-pip ruby ruby-dev rubygems
 RUN pip3 install -q gallium docutils flask jinja2
 RUN gem install -q github-markup github-markdown
 
+# Temporary until Imagination 2 is stable.
+RUN pip3 install -q https://github.com/shiroyuki/Imagination/releases/download/2.0.0a0/imagination-2.0.0a0.tar.gz
+
 # Temporary measure until the native support for RST+docutils is implemented.
 RUN apt-get install -y python-pip
 RUN pip install -q docutils

@@ -8,6 +8,4 @@ Simple Static Site Generator (Paper in Dutch)
 * But do not need to learn a new syntax.
 * Fully support only GitHub's Markdown and Python's ReStructure Text.
 
-## TODO:
-
-* [ ] Native support for `docutils`. See https://github.com/github/markup/blob/master/lib/github/commands/rest2html.
+Check out the progress from [the issue page](https://github.com/shiroyuki/papier/issues).
