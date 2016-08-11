@@ -7,13 +7,28 @@
  *
  * The documentation is based on https://css-tricks.com/snippets/css/a-guide-to-flexbox/.
  */
+
 /**
  * Combo / Flex Container with Common Setup
  */
+@mixin flex-container-default() {
+    @include flex-container();
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    @include flex-container-align-items(stretch);
+}
+
 /**
  * This defines a flex container; inline or block depending on the given value.
  * It enables a flex context for all its direct children.
  */
+@mixin flex-container() {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+}
+
 /**
  * This defines the alignment along the main axis. It helps distribute extra
  * free space left over when either all the flex items on a line are inflexible,
@@ -33,6 +48,13 @@
  *   space against the container edge, but two units of space between the next
  *   item because that next item has it's own spacing that applies.
  */
+@mixin flex-justify-content($value) {
+    -webkit-justify-content: $value;
+    -moz-justify-content: $value;
+    -ms-justify-content: $value;
+    justify-content: $value;
+}
+
 /**
  * This is the shorthand for flex-grow, flex-shrink and flex-basis combined. The
  * second and third parameters (flex-shrink and flex-basis) are optional.
@@ -41,6 +63,13 @@
  * It is recommended that you use this shorthand property rather than set the
  * individual properties. The short hand sets the other values intelligently.
  */
+@mixin flex-item($value) {
+    -webkit-flex: $value;
+    -moz-flex: $value;
+    -ms-flex: $value;
+    flex: $value;
+}
+
 /**
  * This defines the ability for a flex item to grow if necessary. It accepts a
  * unitless value that serves as a proportion. It dictates what amount of the
@@ -50,9 +79,23 @@
  * inside the container. If you were to give one of the children a value of 2,
  * that child would take up twice as much space as the others.
  */
+@mixin flex-grow($value) {
+    -webkit-flex-grow: $value;
+    -moz-flex-grow: $value;
+    -ms-flex-grow: $value;
+    flex-grow: $value;
+}
+
 /**
  * This defines the ability for a flex item to shrink if necessary.
  */
+@mixin flex-shrink($value) {
+    -webkit-flex-shrink: $value;
+    -moz-flex-shrink: $value;
+    -ms-flex-shrink: $value;
+    flex-shrink: $value;
+}
+
 /**
  * This defines the default size of an element before the remaining space is
  * distributed. The main-size value makes it match the width or height,
@@ -65,10 +108,24 @@
  *
  * See http://www.w3.org/TR/css3-flexbox/images/rel-vs-abs-flex.svg.
  */
+@mixin flex-basis($value) {
+    -webkit-flex-basis: $value;
+    -moz-flex-basis: $value;
+    -ms-flex-basis: $value;
+    flex-basis: $value;
+}
+
 /**
  * By default, flex items are laid out in the source order. However, the order
  * property controls the order in which they appear in the flex container.
  */
+@mixin flex-order($value) {
+    -webkit-order: $value;
+    -moz-order: $value;
+    -ms-order: $value;
+    order: $value;
+}
+
 /**
  * This establishes the main-axis, thus defining the direction flex items are
  * placed in the flex container. Flexbox is (aside from optional wrapping) a
@@ -82,6 +139,13 @@
  * - column: same as row but top to bottom
  * - column-reverse: same as row-reverse but bottom to top
  */
+@mixin flex-direction($direction) {
+    -webkit-flex-direction: $direction;
+    -moz-flex-direction: $direction;
+    -ms-flex-direction: $direction;
+    flex-direction: $direction;
+}
+
 /**
  * By default, flex items will all try to fit onto one line. You can change that
  * and allow the items to wrap as needed with this property. Direction also
@@ -93,6 +157,13 @@
  * - wrap: multi-line / left to right in ltr; right to left in rtl
  * - wrap-reverse: multi-line / right to left in ltr; left to right in rtl
  */
+@mixin flex-wrap($wrap) {
+    -webkit-flex-wrap: $wrap;
+    -moz-flex-wrap: $wrap;
+    -ms-flex-wrap: $wrap;
+    flex-wrap: $wrap;
+}
+
 /**
  * This defines the default behaviour for how flex items are laid out along the
  * cross axis on the current line. Think of it as the justify-content version
@@ -106,6 +177,13 @@
  * - baseline: items are aligned such as their baselines align
  * - stretch (default): stretch to fill the container (still respect min-width/max-width)
  */
+@mixin flex-container-align-items($alignment) {
+    -webkit-align-items: $alignment;
+    -moz-align-items: $alignment;
+    -ms-align-items: $alignment;
+    align-items: $alignment;
+}
+
 /**
  * This aligns a flex container's lines within when there is extra space in the
  * cross-axis, similar to how justify-content aligns individual items within
@@ -122,104 +200,54 @@
  * - space-around: lines evenly distributed with equal space around each line
  * - stretch (default): lines stretch to take up the remaining space
  */
+@mixin flex-container-align-content($alignment) {
+    -webkit-align-content: $alignment;
+    -moz-align-content: $alignment;
+    -ms-align-content: $alignment;
+    align-content: $alignment;
+}
+
+@mixin flex-item-align($alignment) {
+    -webkit-align-self: $alignment;
+    -moz-align-self: $alignment;
+    -ms-align-self: $alignment;
+    align-self: $alignment;
+}
+
 /***** Filter *****/
+@mixin filter($function) {
+    -webkit-filter: $function;
+    -moz-filter: $function;
+    -ms-filter: $function;
+    filter: $function;
+}
+
 /***** Transformation *****/
+@mixin transform($execution) {
+    -webkit-transform: $execution;
+    -moz-transform: $execution;
+    -ms-transform: $execution;
+    transform: $execution;
+}
+
+@mixin transform-origin($position) {
+    -webkit-transform-origin: $position;
+    -moz-transform-origin: $position;
+    -ms-transform-origin: $position;
+    transform-origin: $position;
+}
+
 /***** Transition *****/
-body {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, system, "Helvetica Neue", "Helvetica", "Ubuntu", "Arial", sans-serif;
-  font-size: 16px;
-  margin: 0;
-  padding: 0; }
+@mixin transition($property, $speed) {
+    -webkit-transition: $property ease $speed;
+    -moz-transition: $property ease $speed;
+    -ms-transition: $property ease $speed;
+    transition: $property ease $speed;
+}
 
-body > .container {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-align-items: stretch;
-  -moz-align-items: stretch;
-  -ms-align-items: stretch;
-  align-items: stretch; }
-
-/**
- * Predefined Colour Palette
- */
-body footer {
-  margin-top: 8px;
-  border-top: 1px solid #F5F5F5;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-align-items: stretch;
-  -moz-align-items: stretch;
-  -ms-align-items: stretch;
-  align-items: stretch;
-  -webkit-justify-content: space-between;
-  -moz-justify-content: space-between;
-  -ms-justify-content: space-between;
-  justify-content: space-between;
-  color: #9E9E9E; }
-
-body footer > .credit-design, body footer > .credit-software {
-  padding: 8px 16px; }
-
-body > .container > article {
-  -webkit-order: 2;
-  -moz-order: 2;
-  -ms-order: 2;
-  order: 2;
-  -webkit-flex-grow: 1;
-  -moz-flex-grow: 1;
-  -ms-flex-grow: 1;
-  flex-grow: 1;
-  padding: 8px 16px; }
-
-body > .container > article > :first-child {
-  margin-top: 0;
-  padding-top: 0; }
-
-body > .container > aside {
-  -webkit-order: 1;
-  -moz-order: 1;
-  -ms-order: 1;
-  order: 1;
-  width: 160px; }
-
-body > .container > aside ol {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-
-body > .container > aside ol li {
-  margin: 0;
-  padding: 0; }
-
-body > .container > aside ol li a {
-  display: block;
-  color: #616161;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-bottom: 1px solid #F5F5F5; }
-
-body > .container > aside ol li.current a {
-  color: #000000; }
-
-body > .container > aside ol li:last-child a {
-  border-bottom: none; }
+@mixin transition_with_delay($property, $speed, $delay) {
+    -webkit-transition: $property ease $speed $delay;
+    -moz-transition: $property ease $speed $delay;
+    -ms-transition: $property ease $speed $delay;
+    transition: $property ease $speed $delay;
+}

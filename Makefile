@@ -8,6 +8,26 @@ image-build:
 image-push: image-build
 	@docker push $(IMAGE_TAG)
 
+dev-setup:
+	npm install
+
+css:
+	node_modules/node-sass/bin/node-sass \
+		-rq \
+		--output-stype compressed \
+		--follow \
+		-o papier/template \
+		papier/template
+
+css-live:
+	node_modules/node-sass/bin/node-sass \
+		-r \
+		--watch \
+		--output-stype compressed \
+		--follow \
+		-o papier/template \
+		papier/template
+
 term:
 	@docker run \
 		-it --rm \
@@ -19,7 +39,8 @@ term:
 		bash
 
 test-term: image-build
-	@rm -rf $(SAMPLE_DIR)/build || echo '(Already deleted sample files)'
+	@rm -rf $(SAMPLE_DIR)/build/* || echo '(Already deleted sample files)'
+	@rm -rf $(SAMPLE_DIR)/.papier-cache/* || echo '(Already deleted cache)'
 	@docker run \
 		-it --rm \
 		-u $$UID \
@@ -28,3 +49,6 @@ test-term: image-build
 		-w /data \
 		$(IMAGE_TAG) \
 		papier compile -s src -o build
+
+http-sample:
+	@cd sample-site/build && python3 -m http.server --cgi 8000

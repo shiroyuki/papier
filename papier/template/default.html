@@ -1,15 +1,1 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>{{ (title or '(Untitled)' | e) }}</title>
-    <link rel="stylesheet" href="{{ static_path }}/vendor_prism.css"/>
-    <link rel="stylesheet" href="{{ static_path }}/default.css"/>
-</head>
-<body>
-    {{ content }}
-    <script src="{{ static_path }}/vendor_jquery.js"></script>
-    <script src="{{ static_path }}/vendor_prism.js"></script>
-    <script src="{{ static_path }}/default.js"></script>
-</body>
-</html>
+{% extends '_layout.html' %}

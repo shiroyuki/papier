@@ -1,0 +1,12 @@
+@import "css3";
+
+body {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, system, "Helvetica Neue", "Helvetica", "Ubuntu", "Arial", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+
+    & > .container {
+        @include flex-container-default();
+    }
+}

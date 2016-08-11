@@ -1,4 +1,6 @@
+node_modules
 .DS_Store
+sample-site/.papier-cache
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,47 @@
+<!doctype html>
+<html data-generator="shiroyuki/papier">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>{% block title %}{{ (title or '(Untitled)' | e) }}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ static_path }}/vendor_prism.css"/>
+    <link rel="stylesheet" href="{{ static_path }}/default.css"/>
+
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <article>{{ content }}</article>
+
+        {% block aside_nav %}
+            <aside>
+                <nav>
+                    <ol>
+                        {%- for neighbour in neighbours -%}
+                            <li class="{{ 'current' if neighbour.current else '' }}">
+                                <a href="{{ neighbour.filename }}">{{ neighbour.title }}</a>
+                            </li>
+                        {%- endfor -%}
+                    </ol>
+                </nav>
+            </aside>
+        {% endblock %}
+    </div>
+
+    <footer>
+        <span class="credit-design">
+            Designed by <a href="https://www.shiroyuki.com">Juti Noppornpitak</a>.
+        </span>
+        <span class="credit-software">
+            Made with <a href="https://github.com/shiroyuki/papier">Papier</a>.
+        </span>
+    </footer>
+
+    <script src="{{ static_path }}/vendor_jquery.js"></script>
+    <script src="{{ static_path }}/vendor_prism.js"></script>
+    <script src="{{ static_path }}/default.js"></script>
+
+    {% block js %}{% endblock %}
+</body>
+</html>

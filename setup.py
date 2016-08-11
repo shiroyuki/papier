@@ -25,8 +25,6 @@ static_files = ['cli.json', 'containers.xml', ]
 static_files.extend(_list_files('template'))
 static_files.sort()
 
-print('\n'.join(static_files))
-
 setup(
     name         = 'papier',
     version      = '1.0',

@@ -1,0 +1,28 @@
+{
+  "name": "papier",
+  "version": "1.0.0",
+  "description": "Papier Default Theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiroyuki/papier.git"
+  },
+  "keywords": [
+    "python",
+    "static",
+    "site",
+    "genedator"
+  ],
+  "author": "Juti Noppornpitak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shiroyuki/papier/issues"
+  },
+  "homepage": "https://github.com/shiroyuki/papier#readme",
+  "dependencies": {
+    "node-sass": "^3.8.0"
+  }
+}
