@@ -31,8 +31,17 @@ class Compile(ICommand):
             required = True
         )
 
+        parser.add_argument(
+            '--base-path',
+            '-b',
+            help = 'the URL base path',
+            required = False,
+            default = ''
+        )
+
     def execute(self, args):
         self.core.get('compiler').compile(
             os.path.abspath(args.src),
-            os.path.abspath(args.output)
+            os.path.abspath(args.output),
+            args.base_path
         )

@@ -12,15 +12,36 @@
 </head>
 <body>
     <div class="container">
-        <article>{{ content }}</article>
+        <article>
+            <nav class="ancestors" data-count="{{ ancestor_pages | length }}">
+                <ol>
+                    {%- for ancestor_page in ancestor_pages -%}
+                        <li>
+                            <a href="{{ ancestor_page.filename }}">{{ ancestor_page.title }}</a>
+                        </li>
+                    {%- endfor -%}
+
+                    <li>
+                        <a href="{{ filename }}">{{ title }}</a>
+                    </li>
+                </ol>
+            </nav>
+
+            {{ content }}
+        </article>
 
         {% block aside_nav %}
             <aside>
-                <nav>
+                <nav class="main">
                     <ol>
-                        {%- for neighbour in neighbours -%}
-                            <li class="{{ 'current' if neighbour.current else '' }}">
-                                <a href="{{ neighbour.filename }}">{{ neighbour.title }}</a>
+                        {%- if parent_page -%}
+                            <li class="parent">
+                                <a href="{{ parent_page.filename }}">{{ parent_page.title }}</a>
+                            </li>
+                        {%- endif -%}
+                        {%- for neighbour_page in neighbour_pages -%}
+                            <li class="{{ 'current' if neighbour_page.current else '' }}">
+                                <a href="{{ neighbour_page.filename }}">{{ neighbour_page.title }}</a>
                             </li>
                         {%- endfor -%}
                     </ol>

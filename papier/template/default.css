@@ -125,34 +125,17 @@
 /***** Filter *****/
 /***** Transformation *****/
 /***** Transition *****/
-body {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, system, "Helvetica Neue", "Helvetica", "Ubuntu", "Arial", sans-serif;
-  font-size: 16px;
-  margin: 0;
-  padding: 0; }
-
-body > .container {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-align-items: stretch;
-  -moz-align-items: stretch;
-  -ms-align-items: stretch;
-  align-items: stretch; }
-
 /**
  * Predefined Colour Palette
  */
-body footer {
+body {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, system, "Helvetica Neue", "Helvetica", "Ubuntu", "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0; }
+
+body > footer {
   margin-top: 8px;
   border-top: 1px solid #F5F5F5;
   display: -webkit-flex;
@@ -177,8 +160,26 @@ body footer {
   justify-content: space-between;
   color: #9E9E9E; }
 
-body footer > .credit-design, body footer > .credit-software {
+body > footer > .credit-design, body > footer > .credit-software {
   padding: 8px 16px; }
+
+body > .container {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: stretch;
+  -moz-align-items: stretch;
+  -ms-align-items: stretch;
+  align-items: stretch; }
 
 body > .container > article {
   -webkit-order: 2;
@@ -195,31 +196,82 @@ body > .container > article > :first-child {
   margin-top: 0;
   padding-top: 0; }
 
-body > .container > aside {
+body > .container nav.main {
   -webkit-order: 1;
   -moz-order: 1;
   -ms-order: 1;
   order: 1;
   width: 160px; }
 
-body > .container > aside ol {
+body > .container nav.main ol {
   list-style: none;
   margin: 0;
   padding: 0; }
 
-body > .container > aside ol li {
+body > .container nav.main ol li {
   margin: 0;
   padding: 0; }
 
-body > .container > aside ol li a {
+body > .container nav.main ol li a {
   display: block;
   color: #616161;
   text-decoration: none;
   padding: 8px 16px;
   border-bottom: 1px solid #F5F5F5; }
 
-body > .container > aside ol li.current a {
+body > .container nav.main ol li.current a {
   color: #000000; }
 
-body > .container > aside ol li:last-child a {
+body > .container nav.main ol li:last-child a {
   border-bottom: none; }
+
+body > .container nav.ancestors ol {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: stretch;
+  -moz-align-items: stretch;
+  -ms-align-items: stretch;
+  align-items: stretch;
+  list-style: none;
+  margin: -8px -16px 0 -16px;
+  padding: 0;
+  border-bottom: 1px solid #F5F5F5; }
+
+body > .container nav.ancestors ol li {
+  display: block;
+  margin: 0;
+  padding: 0; }
+
+body > .container nav.ancestors ol li a {
+  display: block;
+  color: #616161;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-right: 1px solid #F5F5F5; }
+
+body > .container nav.ancestors ol li:last-child a {
+  border-right: none;
+  color: #000000; }
+
+body > .container nav.ancestors ol:empty {
+  display: none; }
+
+/**
+ * Predefined Colour Palette
+ */
+body > .container > article nav.ancestors[data-count="0"] {
+  display: none; }
+
+body > .container > article nav.ancestors[data-count="0"] + * {
+  margin-top: 0;
+  padding-top: 8px; }

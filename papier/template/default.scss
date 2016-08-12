@@ -2,63 +2,14 @@
 @import 'palette';
 
 body {
-    footer {
-        margin-top: 8px;
-        border-top: 1px solid $palette_Grey_100;
-        @include flex-container-default();
-        @include flex-justify-content(space-between);
-        color: $palette_Grey_500;
-
-        & > .credit-design, & > .credit-software {
-            padding: 8px 16px;
-        }
-    }
-
     & > .container {
         & > article {
-            @include flex-order(2);
-            @include flex-grow(1);
+            nav.ancestors[data-count="0"] {
+                display: none;
 
-            padding: 8px 16px;
-
-            & > :first-child {
-                margin-top: 0;
-                padding-top: 0;
-            }
-        }
-
-        & > aside {
-            @include flex-order(1);
-            width: 160px;
-
-            ol {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-
-                li {
-                    margin: 0;
-                    padding: 0;
-
-                    a {
-                        display: block;
-                        color: $palette_Grey_700;
-                        text-decoration: none;
-                        padding: 8px 16px;
-                        border-bottom: 1px solid $palette_Grey_100;
-                    }
-
-                    &.current {
-                        a {
-                            color: $palette_Black;
-                        }
-                    }
-
-                    &:last-child {
-                        a {
-                            border-bottom: none;
-                        }
-                    }
+                & + * {
+                    margin-top: 0;
+                    padding-top: 8px;
                 }
             }
         }
