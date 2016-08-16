@@ -4,6 +4,7 @@ import os
 
 base_path = 'papier'
 
+
 def _list_files(path):
     subpaths    = []
     actual_path = os.path.join(base_path, path)
@@ -27,7 +28,7 @@ static_files.sort()
 
 setup(
     name         = 'papier',
-    version      = '1.0',
+    version      = '1.0.0a1',
     description  = 'Simple Static Site Generator',
     author       = 'Juti Noppornpitak',
     author_email = 'jnopporn@shiroyuki.com',
@@ -37,6 +38,11 @@ setup(
     package_dir  = {'papier': 'papier'},
     package_data = {'papier': static_files},
     data_files   = [
-        #('/usr/local/bin', ['bin/papier_mdc'])
+        # ('/usr/local/bin', ['bin/papier_mdc'])
+    ],
+    install_requires = [
+        'kotoba',
+        'imagination>=2',
+        'pyyaml'
     ]
 )

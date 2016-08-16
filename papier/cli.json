@@ -1,5 +1,5 @@
 {
     "imports": [
-        "papier.cli"
+        "papier.cli.compile"
     ]
 }
