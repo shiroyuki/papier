@@ -1,0 +1,10 @@
+# Default Settings
+site:
+    source:
+        path: src
+        index_filename: index
+    themes:
+        path: themes
+        layout: default
+    output:
+        path: build

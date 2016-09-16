@@ -43,6 +43,11 @@ setup(
     install_requires = [
         'kotoba',
         'imagination>=2',
-        'pyyaml'
+        'pyyaml',
+        'gallium',
+        'docutils',
+        'flask',
+        'jinja2',
+        'watchdog',
     ]
 )
