@@ -11,12 +11,15 @@
     * the code is primarily for Python 3.4 and 3.5.
 """
 import codecs
+import re
 
 from docutils import nodes
 from docutils.parsers.rst import directives, roles
 from docutils.parsers.rst.directives.body import CodeBlock
 from docutils.core import publish_parts
 from docutils.writers.html4css1 import Writer, HTMLTranslator
+
+from .interpreter import Handler
 
 SETTINGS = {
     'cloak_email_addresses'  : False,
@@ -143,3 +146,21 @@ class RSTService(object):
             return html.encode('utf-8')
 
         return ''
+
+
+class RSTHandler(object):
+    def __init__(self):
+        self._re_supported_ext = re.compile('\.rst$', re.I)
+        self._service          = RSTService()
+
+    def can_handle(self, fs_node):
+        return (
+            fs_node.is_file() and
+            bool(self._re_supported_ext.search(fs_node.reference_path))
+        )
+
+    def process(self, fs_node):
+        with codecs.open(fs_node.src_path, 'r') as f:
+            text = f.read()
+
+        return self._service.to_html(text)

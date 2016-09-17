@@ -4,14 +4,14 @@ import subprocess
 from gallium           import ICommand
 from imagination.debug import get_logger
 
-GH_MARKUP_INST_CLI = ['gem', 'install', '-q', 'github-markup', 'github-markdown']
+GH_MARKUP_INST_CLI = ['gem', 'install', '-q', 'github-markup', 'github-markdown', 'redcarpet']
 
 
 class DepsInstallationFailure(RuntimeError):
     """ Dependency Installation Failure """
 
 
-class Compile(ICommand):
+class Build(ICommand):
     """ Build site """
     def identifier(self):
         return 'build'
@@ -55,26 +55,24 @@ class Compile(ICommand):
             return
 
         if args.watch:
-            logger.debug('Watching for changes')
+            observer = self.core.get('papier.live_updater')
 
-            handler  = self.core.get('fs_event.handler')
-            observer = self.core.get('fs_event.observer')
+        nodes = self.core.get('papier.fs.walker').walk(args.src, args.output)
 
-            observer.schedule(handler, args.src, recursive = True)
-            observer.start()
+        self.core.get('papier.interpreter').prepare(nodes)
+        self.core.get('papier.interpreter').process(nodes)
+
+        print('\n'.join([
+            '- {} ({})'.format(
+                n.reference_path,
+                'handled' if n.handler else 'not handled'
+            )
+            for n in nodes
+        ]))
 
         if observer:
-            logger.debug('Started the file watcher')
-
-            try:
-                while True:
-                    pass
-            except KeyboardInterrupt:
-                logger.debug('Stoping the file watcher')
-                observer.stop()
-
-            observer.join()
-            logger.debug('Stopped the file watcher')
+            observer.watch(args.src)
+            observer.run_blocking_observation()
 
         logger.info('Complete without exciting incident')
 
@@ -115,7 +113,7 @@ class Compile(ICommand):
         install_err   = None
         attempt_count = 0
         attempts      = (
-            ['sudo', *GH_MARKUP_INST_CLI],
+            ['sudo', '-H', *GH_MARKUP_INST_CLI],
             GH_MARKUP_INST_CLI,
         )
 

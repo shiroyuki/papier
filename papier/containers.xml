@@ -1,9 +1,24 @@
 <imagination>
-    <entity id="fs_event.observer" class="watchdog.observers.Observer"/>
-    <entity id="fs_event.handler" class="papier.watcher.FSEventHandler"/>
+    <entity id="papier.fs.event.observer" class="watchdog.observers.Observer"/>
+    <entity id="papier.fs.event.handler" class="papier.watcher.FSEventHandler"/>
+    <entity id="papier.fs.walker" class="papier.walker.FileWalker"/>
+    <entity id="papier.interpreter" class="papier.interpreter.Interpreter">
+        <param type="list" name="handlers">
+            <item type="entity">papier.handler.rst</item>
+            <item type="entity">papier.handler.md</item>
+        </param>
+    </entity>
+    <entity id="papier.handler.rst" class="papier.rst.RSTHandler"/>
+    <entity id="papier.handler.md" class="papier.md.MarkDownHandler"/>
+    <entity id="papier.live_updater" class="papier.watcher.LiveUpdateService">
+        <param type="entity" name="observer">papier.fs.event.observer</param>
+        <param type="entity" name="handler">papier.fs.event.handler</param>
+    </entity>
+
+    <!-- Legacy Code -->
+
     <entity id="compiler" class="papier.compiler.Compiler">
         <param name="renderer" type="entity">renderer</param>
     </entity>
     <entity id="renderer" class="papier.renderer.Renderer"/>
-    <entity id="papier.rst" class="papier.rst.RSTService"/>
 </imagination>

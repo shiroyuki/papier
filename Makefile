@@ -38,6 +38,9 @@ term:
 		$(IMAGE_TAG) \
 		bash
 
+run-sample-danbo:
+	bin/papier build -s ../com.shiroyuki.www/r15/src -o ../com.shiroyuki.www/r15/build #-w
+
 test-term: image-build
 	@rm -rf $(SAMPLE_DIR)/build/* || echo '(Already deleted sample files)'
 	@rm -rf $(SAMPLE_DIR)/.papier-cache/* || echo '(Already deleted cache)'
