@@ -22,7 +22,7 @@ class FSNode(object):
         self.reference_path = reference_path
         self.cache_path     = cache_path
         self.kind           = kind
-        self.handler        = None
+        self.interpreter    = None
 
     def is_file(self):
         return self.kind == 'file'
@@ -31,7 +31,7 @@ class FSNode(object):
         return self.kind == 'dir'
 
     def interpret(self):
-        return self.handler.process(self)
+        return self.interpreter.process(self)
 
     def __repr__(self):
         return '<FSNode {}="{}">'.format(self.kind, self.reference_path)
@@ -70,12 +70,12 @@ class FileWalker(object):
             if os.path.isdir(sub_src_path):
                 sub_paths.extend(self.walk(
                     sub_src_path,
-                    output_path,
+                    sub_output_path,
                     reference_path
                 ))
 
                 continue
 
-        sub_paths.sort(key=lambda fs_node: fs_node.reference_path)
+        sub_paths.sort(key = lambda fs_node: fs_node.reference_path)
 
         return sub_paths

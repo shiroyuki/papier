@@ -62,13 +62,14 @@ class Build(ICommand):
         self.core.get('papier.interpreter').prepare(nodes)
         self.core.get('papier.interpreter').process(nodes)
 
-        print('\n'.join([
-            '- {} ({})'.format(
+        for n in nodes:
+            print('*  REF: {}\n   HDR: {}\n   SRC: {}\n   DST: {}\n   CCH: {}'.format(
                 n.reference_path,
-                'handled' if n.handler else 'not handled'
-            )
-            for n in nodes
-        ]))
+                'O' if n.interpreter else 'X',
+                n.src_path,
+                n.output_path,
+                n.cache_path
+            ))
 
         if observer:
             observer.watch(args.src)
