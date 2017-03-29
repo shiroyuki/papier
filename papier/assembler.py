@@ -13,6 +13,8 @@ class Assembler(object):
         self.doctree_factory = doctree_factory
         self.templates       = templates
 
+        self._re_source_ext = re.compile('<a(?P<before> .+)? href="(?P<href>[^"]+)\.(?P<ext>md|rst)"(?P<after> .+)?>', re.I & re.M)
+
     def assemble_by_file(self, configuration_file_path):
         return self.assemble(
             self.config_parser.parse_from_file(configuration_file_path)
@@ -52,6 +54,7 @@ class Assembler(object):
             os.makedirs(dir_path, 0o755)
 
         output = self.templates.get_template('default.html').render(page = node)
+        output = self._re_source_ext.sub('<a\g<before> href="\g<href>"\g<after>>')
 
         #print(node.output_path)
         with codecs.open(node.output_path, 'w') as f:
