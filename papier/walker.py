@@ -3,6 +3,8 @@ import os
 import hashlib
 import re
 
+_re_extension = re.compile('\.[^\.]+$')
+
 
 class InvalidWalkTargetError(RuntimeError):
     pass
@@ -20,9 +22,21 @@ class FSNode(object):
         self.src_path       = src_path
         self.output_path    = output_path
         self.reference_path = reference_path
+        self.name           = _re_extension.sub('', self.reference_path)
         self.cache_path     = cache_path
         self.kind           = kind
         self.interpreter    = None
+
+        # Local cache
+        self.__content = None
+
+    @property
+    def content(self):
+        if not self.__content:
+            with codecs.open(self.cache_path, 'r') as f:
+                self.__content = f.read()
+
+        return self.__content
 
     def is_file(self):
         return self.kind == 'file'
@@ -32,6 +46,21 @@ class FSNode(object):
 
     def interpret(self):
         return self.interpreter.process(self)
+
+    def src_mtime(self):
+        return os.path.getmtime(self.src_path)
+
+    def output_mtime(self):
+        if not os.path.exists(self.output_path):
+            return None
+
+        return os.path.getmtime(self.output_path)
+
+    def is_updated(self):
+        output_mtime = self.output_mtime()
+        src_mtime    = self.src_mtime()
+
+        return src_mtime < output_mtime if output_mtime else True
 
     def __repr__(self):
         return '<FSNode {}="{}">'.format(self.kind, self.reference_path)

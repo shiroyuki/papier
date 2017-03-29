@@ -1,3 +1,5 @@
+import codecs
+import os
 import re
 
 
@@ -27,4 +29,15 @@ class Interpreter(object):
             if not fs_node.interpreter:
                 continue
 
+            if not fs_node.is_updated():
+                continue
+
             html = fs_node.interpret()
+
+            dir_path = os.path.dirname(fs_node.cache_path)
+
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path, 0o755)
+
+            with codecs.open(fs_node.cache_path, 'w') as f:
+                f.write(html)

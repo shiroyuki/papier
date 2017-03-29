@@ -28,7 +28,7 @@ static_files.sort()
 
 setup(
     name         = 'papier',
-    version      = '1.0.0a1',
+    version      = '1.0.0a2',
     description  = 'Simple Static Site Generator',
     author       = 'Juti Noppornpitak',
     author_email = 'jnopporn@shiroyuki.com',

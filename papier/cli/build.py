@@ -1,8 +1,7 @@
-import logging
+import os
 import subprocess
 
-from gallium           import ICommand
-from imagination.debug import get_logger
+from gallium import ICommand
 
 GH_MARKUP_INST_CLI = ['gem', 'install', '-q', 'github-markup', 'github-markdown', 'redcarpet']
 
@@ -18,25 +17,19 @@ class Build(ICommand):
 
     def define(self, parser):
         parser.add_argument(
-            '--src',
-            '-s',
-            help     = 'the directory containing the source of your website',
-            required = True
-        )
-
-        parser.add_argument(
-            '--output',
-            '-o',
-            help     = 'the directory will contain the actual website',
-            required = True
-        )
-
-        parser.add_argument(
-            '--base-path',
-            '-b',
-            help     = 'the URL base path',
+            '--config',
+            '-c',
+            help     = 'the directory that contains the site configuration file',
             required = False,
-            default  = ''
+            default  = os.path.join(os.getcwd(), 'papier.yml')
+        )
+
+        parser.add_argument(
+            '--install-deps',
+            '-i',
+            help     = 'automatically install dependencies',
+            required = False,
+            action   = 'store_true'
         )
 
         parser.add_argument(
@@ -48,43 +41,27 @@ class Build(ICommand):
         )
 
     def execute(self, args):
-        logger   = self._logger()
         observer = None
 
-        if not self._install_dependencies():
+        if args.install_deps and not self._install_dependencies():
             return
 
         if args.watch:
             observer = self.core.get('papier.live_updater')
 
-        nodes = self.core.get('papier.fs.walker').walk(args.src, args.output)
-
-        self.core.get('papier.interpreter').prepare(nodes)
-        self.core.get('papier.interpreter').process(nodes)
-
-        for n in nodes:
-            print('*  REF: {}\n   HDR: {}\n   SRC: {}\n   DST: {}\n   CCH: {}'.format(
-                n.reference_path,
-                'O' if n.interpreter else 'X',
-                n.src_path,
-                n.output_path,
-                n.cache_path
-            ))
+        doc_tree = self.core.get('papier.assembler').assemble_by_file(args.config)
 
         if observer:
             observer.watch(args.src)
             observer.run_blocking_observation()
 
-        logger.info('Complete without exciting incident')
-
-    def _logger(self):
-        return get_logger('builder', level = logging.DEBUG)
+        print('[build] Complete without exciting incident')
 
     def _install_dependencies(self):
-        logger = self._logger()
-
         try:
-            subprocess.check_call('github-markup > /dev/null', shell = True)
+            subprocess.check_call('touch quick-test.md', shell = True)
+            subprocess.check_call('github-markup quick-test.md > /dev/null', shell = True)
+            subprocess.check_call('rm quick-test.md', shell = True)
         except FileNotFoundError:
             print('"github-markup" is not found.')
 
@@ -95,15 +72,15 @@ class Build(ICommand):
             )
 
             if to_install == 'no':
-                logger.info('Unable to continue until you install "github-markup"')
+                print('[build] Unable to continue until you install "github-markup"')
 
                 return False
 
             try:
                 self._install_github_markup()
             except DepsInstallationFailure as e:
-                logger.error(e)
-                logger.info('Unable to continue without "github-markup"')
+                print('[build] {}: {}'.format(type(e).__name__, e))
+                print('[build] Unable to continue without "github-markup"')
 
                 return False
 

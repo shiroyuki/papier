@@ -1,3 +1,4 @@
+# DEPRECATED
 import codecs
 import hashlib
 import os

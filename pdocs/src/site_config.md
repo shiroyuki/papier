@@ -16,8 +16,7 @@ referred as:
 ```yaml
 papier:
     # ... (omitted) ...
-    theme:
-        path: ~
+    theme: ~
 ```
 
 ## Customize your site
@@ -37,17 +36,17 @@ papier:
 ```yaml
 papier:
     # ... (omitted) ...
-    override:
+    override: # Override theme per path
         # NOTE all pages under /projects
-        /projects/*:
-            path: project # the absolute path or path relative to the config file (required)
-            layout: default # the name of the layout file
+        /projects/.*:
+            theme_path: project # the absolute path or path relative to the config file (required)
+            theme_layout: default # the name of the layout file
         # NOTE all pages under /articles
-        /articles/*:
-            path: journal # the absolute path or path relative to the config file (required)
-            layout: default # the name of the layout file
+        /articles/.*:
+            theme_path: journal # the absolute path or path relative to the config file (required)
+            theme_layout: default # the name of the layout file
         # NOTE only the index page
         /index.html:
-            path: themes # the absolute path or path relative to the config file (required)
-            layout: default # the name of the layout file
+            theme_path: themes # the absolute path or path relative to the config file (required)
+            theme_layout: default # the name of the layout file
 ```

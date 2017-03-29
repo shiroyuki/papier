@@ -1,4 +1,11 @@
 <imagination>
+    <entity id="papier.template.default" class="jinja2.Environment">
+        <param type="entity" name="loader">papier.template.default.loader</param>
+    </entity>
+    <entity id="papier.template.default.loader" class="jinja2.PackageLoader">
+        <param type="str">papier</param>
+        <param type="str">template</param>
+    </entity>
     <entity id="papier.fs.event.observer" class="watchdog.observers.Observer"/>
     <entity id="papier.fs.event.handler" class="papier.watcher.FSEventHandler"/>
     <entity id="papier.fs.walker" class="papier.walker.FileWalker"/>
@@ -14,11 +21,13 @@
         <param type="entity" name="observer">papier.fs.event.observer</param>
         <param type="entity" name="handler">papier.fs.event.handler</param>
     </entity>
-
-    <!-- Legacy Code -->
-
-    <entity id="compiler" class="papier.compiler.Compiler">
-        <param name="renderer" type="entity">renderer</param>
+    <entity id="papier.config.parser" class="papier.config.Parser"/>
+    <entity id="papier.doctree.factory" class="papier.doctree.Factory"/>
+    <entity id="papier.assembler" class="papier.assembler.Assembler">
+        <param type="entity" name="config_parser">papier.config.parser</param>
+        <param type="entity" name="file_walker">papier.fs.walker</param>
+        <param type="entity" name="interpreter">papier.interpreter</param>
+        <param type="entity" name="doctree_factory">papier.doctree.factory</param>
+        <param type="entity" name="templates">papier.template.default</param>
     </entity>
-    <entity id="renderer" class="papier.renderer.Renderer"/>
 </imagination>

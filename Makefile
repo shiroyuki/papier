@@ -39,7 +39,7 @@ term:
 		bash
 
 run-sample-danbo:
-	bin/papier build -s ../com.shiroyuki.www/r15/src -o ../com.shiroyuki.www/r15/build #-w
+	bin/papier build -c ../com.shiroyuki.www/r15/papier.yml #-w
 
 test-term: image-build
 	@rm -rf $(SAMPLE_DIR)/build/* || echo '(Already deleted sample files)'

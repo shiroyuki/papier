@@ -13,21 +13,25 @@
 <body>
     <div class="container">
         <article>
-            <nav class="ancestors" data-count="{{ ancestor_pages | length }}">
+            <nav class="ancestors" data-count="{{ page.ancestors | length }}">
                 <ol>
-                    {%- for ancestor_page in ancestor_pages -%}
-                        <li>
-                            <a href="{{ ancestor_page.filename }}">{{ ancestor_page.title }}</a>
-                        </li>
+                    {%- for ancestor in page.ancestors -%}
+                        {%- if ancestor.path != page.path -%}
+                            <li>
+                                <a class="{{ ancestor.kind }}" href="{{ ancestor.relative_path_to(page) }}">{{ ancestor.title }}</a>
+                            </li>
+                        {%- endif -%}
                     {%- endfor -%}
 
                     <li>
-                        <a href="{{ filename }}">{{ title }}</a>
+                        <a href="{{ page.relative_path_to(page) }}">{{ page.title }}</a>
                     </li>
                 </ol>
             </nav>
 
-            {{ content }}
+            <section class="main">
+                {{- page.content -}}
+            </section>
         </article>
 
         {% block aside_nav %}
