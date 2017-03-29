@@ -54,7 +54,7 @@ class Assembler(object):
             os.makedirs(dir_path, 0o755)
 
         output = self.templates.get_template('default.html').render(page = node)
-        output = self._re_source_ext.sub('<a\g<before> href="\g<href>"\g<after>>')
+        output = self._re_source_ext.sub('<a\g<before> href="\g<href>.html"\g<after>>', output)
 
         #print(node.output_path)
         with codecs.open(node.output_path, 'w') as f:

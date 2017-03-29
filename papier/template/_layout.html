@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
 
-    <title>{% block title %}{{ (title or '(Untitled)' | e) }}{% endblock %}</title>
+    <title>{% block title %}{{ (page.title or '(Untitled)' | e) }}{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ static_path }}/vendor_prism.css"/>
     <link rel="stylesheet" href="{{ static_path }}/default.css"/>

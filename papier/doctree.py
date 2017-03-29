@@ -37,10 +37,9 @@ class DocBase(object):
 
         prefix = '../' * abs(diff_level) if diff_level < 0 else ''
 
-        return '{}{}#{}'.format(
+        return '{}{}'.format(
             prefix,
             '/'.join(self.tree_path[self_level - diff_level - 1:]),
-            self_level - diff_level - 1
         )
 
     def __getattr__(self, name):
